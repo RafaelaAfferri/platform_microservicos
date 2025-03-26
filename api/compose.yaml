@@ -40,5 +40,5 @@ services:
 
   exchange:
     build:
-      context: ./exchange-service
+      context: ./entrega_1_microservicos
       dockerfile: Dockerfile
