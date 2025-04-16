@@ -62,7 +62,8 @@ theme:
       bug: fontawesome/solid/robot
       example: fontawesome/solid/flask
       quote: fontawesome/solid/quote-left
-  logo: assets/images/devops.png
+  # logo: assets/images/devops.png
+  logo: assets/images/insper.svg
 
 markdown_extensions:
   - admonition
@@ -109,6 +110,8 @@ plugins:
       repository: hsandmann/hsandmann.github.com
       branch: main
   - search
+  - minify:
+      minify_html: true
   - badges
   - markdown-exec
   - render_swagger:
@@ -130,9 +133,9 @@ nav:
   - Home: index.md
   - 2025.1: versions/2025.1.md
   - Checkpoints:
-    - 1. CRUD Spring Boot: checkpoints/checkpoint1.md
-    - 2. Gateway Spring Cloud: checkpoints/checkpoint2.md
-    - 3. Security Spring Cloud: checkpoints/checkpoint3.md
+    - 1. CRUD: checkpoints/checkpoint1.md
+    - 2. Gateway: checkpoints/checkpoint2.md
+    - 3. Security: checkpoints/checkpoint3.md
     - 4. DevOps: checkpoints/checkpoint4.md
     - 5. Orchestration: checkpoints/checkpoint5.md
   - Exercises:

@@ -1,6 +1,35 @@
 
 Create a RESTful API for a store. The API should have two main resources: `product` and `order`.
 
+
+``` mermaid
+flowchart LR
+    subgraph api [Trusted Layer]
+        direction TB
+        gateway --> account
+        gateway --> auth
+        account --> db@{ shape: cyl, label: "Database" }
+        auth --> account
+        gateway --> exchange
+        gateway e5@==> product:::red
+        gateway e6@==> order:::red
+        product e2@==> db
+        order e3@==> db
+        order e4@==> product
+    end
+    exchange --> 3partyapi@{label: "3rd-party API"}
+    internet e1@==>|request| gateway
+    e1@{ animate: true }
+    e2@{ animate: true }
+    e3@{ animate: true }
+    e4@{ animate: true }
+    e5@{ animate: true }
+    e6@{ animate: true }
+    classDef red fill:#fcc
+    click product "#product-api" "Product API"
+    click order "#order-api" "Order API"
+```
+
 !!! warning "Attention"
 
     **To consume the API, the user must be authenticated.**
@@ -99,13 +128,13 @@ The API should have the following endpoints:
 
         ``` { .json .copy .select linenums='1' }
         {
-            "products": [
+            "items": [
                 {
-                    "id": "0195abfb-7074-73a9-9d26-b4b9fbaab0a8",
+                    "idProduct": "0195abfb-7074-73a9-9d26-b4b9fbaab0a8",
                     "quantity": 2
                 },
                 {
-                    "id": "0195abfe-e416-7052-be3b-27cdaf12a984",
+                    "idProduct": "0195abfe-e416-7052-be3b-27cdaf12a984",
                     "quantity": 1
                 }
             ]
@@ -118,14 +147,20 @@ The API should have the following endpoints:
         {
             "id": "0195ac33-73e5-7cb3-90ca-7b5e7e549569",
             "date": "2025-09-01T12:30:00",
-            "products": [
+            "items": [
                 {
-                    "id": "0195abfb-7074-73a9-9d26-b4b9fbaab0a8",
+                    "id": "01961b9a-bca2-78c4-9be1-7092b261f217",
+                    "product": {
+                        "id": "0195abfb-7074-73a9-9d26-b4b9fbaab0a8"
+                    },
                     "quantity": 2,
                     "total": 20.24
                 },
                 {
-                    "id": "0195abfe-e416-7052-be3b-27cdaf12a984",
+                    "id": "01961b9b-08fd-76a5-8508-cdb6cd5c27ab",
+                    "product": {
+                        "id": "0195abfe-e416-7052-be3b-27cdaf12a984"
+                    },
                     "quantity": 10,
                     "total": 6.2
                 }
@@ -135,7 +170,7 @@ The API should have the following endpoints:
         ```
         ```bash
         Response code: 201 (created)
-        Response code: 404 (not found), if the product does not exist.
+        Response code: 400 (bad request), if the product does not exist.
         ```
 
 !!! info "GET /order"
@@ -173,14 +208,20 @@ The API should have the following endpoints:
         {
             "id": "0195ac33-73e5-7cb3-90ca-7b5e7e549569",
             "date": "2025-09-01T12:30:00",
-            "products": [
+            "items": [
                 {
-                    "id": "0195abfb-7074-73a9-9d26-b4b9fbaab0a8",
+                    "id": "01961b9a-bca2-78c4-9be1-7092b261f217",
+                    "product": {
+                        "id": "0195abfb-7074-73a9-9d26-b4b9fbaab0a8",
+                    },
                     "quantity": 2,
                     "total": 20.24
                 },
                 {
-                    "id": "0195abfe-e416-7052-be3b-27cdaf12a984",
+                    "id": "01961b9b-08fd-76a5-8508-cdb6cd5c27ab",
+                    "product": {
+                        "id": "0195abfe-e416-7052-be3b-27cdaf12a984",
+                    },
                     "quantity": 10,
                     "total": 6.2
                 }
@@ -206,6 +247,6 @@ Additional features are welcome, such as:
 
 ## Nice to have
 
-- Observability (metrics, logs), see Prometheus and Grafana;
-- Database In-Memory (suggestion: Product microservice);
-- Swagger documentation.
+- Observability (metrics, logs), see [Prometheus](https://prometheus.io/){target="_blank"} and [Grafana](https://grafana.com/){target="_blank"};
+- Database In-Memory (suggestion: Product microservice), see [Redis](https://redis.io/){target="_blank"};
+- Swagger documentation, see [SpringDoc](https://springdoc.org/){target="_blank"}.

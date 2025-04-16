@@ -34,6 +34,7 @@ spring:
           predicates:
             - Path=/product/**
 
+
 logging:
   level:
     store: ${LOGGING_LEVEL_STORE:debug}

@@ -4,6 +4,7 @@ services:
   
   db:
     image: postgres:latest
+    hostname: db
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-store}
       POSTGRES_USER: ${POSTGRES_USER:-store}
@@ -14,6 +15,7 @@ services:
     #   - 5432:5432
 
   account:
+    hostname: account
     build:
       context: ./account-service
       dockerfile: Dockerfile
@@ -23,6 +25,7 @@ services:
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-store}
 
   auth:
+    hostname: auth
     build:
       context: ./auth-service
       dockerfile: Dockerfile
@@ -30,6 +33,7 @@ services:
       JWT_SECRET_KEY: ${JWT_SECRET_KEY:-yrBBgYlvJQeslzFlgX9MFZccToI2fjRFqualquercoisa}
 
   gateway:
+    hostname: gateway
     build:
       context: ./gateway-service
       dockerfile: Dockerfile
@@ -37,7 +41,6 @@ services:
       - LOGGING_LEVEL_STORE=${LOGGING_LEVEL_STORE:-debug}
     ports:
       - 8080:8080
-
   exchange:
     build:
       context: ./entrega_1_microservicos
@@ -51,3 +54,4 @@ services:
       DATABASE_HOST: db
       DATABASE_USER: ${POSTGRES_USER:-store}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-store}
+

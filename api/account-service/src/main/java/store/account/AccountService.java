@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AccountService {
@@ -24,7 +26,7 @@ public class AccountService {
     public Account create(Account account) {
         final String pass = account.password().trim();
         if (pass.length() < 8) {
-            throw new RuntimeException("Password too short!");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password too short!");
         }
         account.sha256(calcHash(pass));
         account.creation(new Date());
