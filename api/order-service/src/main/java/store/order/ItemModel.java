@@ -10,48 +10,48 @@ import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import store.account.AccountOut;
+import store.product.ProductOut;
 
-import java.util.ArrayList;
-import java.util.Date;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "item")
 @Setter @Accessors(fluent = true)
 @NoArgsConstructor
-public class OrderModel {
+public class ItemModel {
 
     @Id
-    @Column(name = "id_order")
+    @Column(name = "id_item")
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(name = "dt_date")
-    private Date date;
+    @Column(name = "nr_quantity")
+    private int quantity;
 
     @Column(name = "nr_total")
     private Float total;
 
-    @Column(name = "id_account")
-    private String idAccount;
+    @Column(name = "id_order")
+    private String id_order;
 
+    @Column(name = "id_product")
+    private String id_product;
 
-
-    public OrderModel(Order a) {
+    public ItemModel(Item a) {
         this.id = a.id();
-        this.date = a.date();
+        this.quantity = a.quantity();
         this.total = a.total();
-        this.idAccount = a.account().id();
+        this.id_order = a.order().id();
+        this.id_product = a.product().id();
     }
 
-    public Order to() {
-        return Order.builder()
+    public Item to() {
+
+        return Item.builder()
             .id(this.id)
-            .date(this.date)
+            .quantity(this.quantity)
             .total(this.total)
-            .items(new ArrayList<>())
-            .account(AccountOut.builder().id(this.idAccount).build())
+            .order(Order.builder().id(this.id_order).build())
+            .product(ProductOut.builder().id(this.id_product).build())
             .build();
         }
-
 }

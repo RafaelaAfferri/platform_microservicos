@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: account
+    name: product
 
   datasource:
     url: jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT:5432}/store

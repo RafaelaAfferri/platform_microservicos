@@ -11,6 +11,7 @@ public class Item {
     private String id;
     private int quantity;
     private Float total;
+    private Order order;
     private ProductOut product;
 
 }

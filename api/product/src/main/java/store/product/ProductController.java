@@ -26,6 +26,7 @@ public interface ProductController {
         @PathVariable(value = "id", required = true) String idProduct
     );
 
+    
    @DeleteMapping("/product/{id}")
     public ResponseEntity<ProductOut> deleteById(
         @PathVariable(value = "id", required = true) String idProduct

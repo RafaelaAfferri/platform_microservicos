@@ -35,6 +35,11 @@
 			<artifactId>order</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>store</groupId>
+			<artifactId>product</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>store</groupId>

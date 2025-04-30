@@ -23,6 +23,8 @@ services:
       DATABASE_HOST: db
       DATABASE_USER: ${POSTGRES_USER:-store}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-store}
+    depends_on:
+      - db
 
   auth:
     hostname: auth
@@ -31,6 +33,8 @@ services:
       dockerfile: Dockerfile
     environment:
       JWT_SECRET_KEY: ${JWT_SECRET_KEY:-yrBBgYlvJQeslzFlgX9MFZccToI2fjRFqualquercoisa}
+    depends_on:
+      - db
 
   gateway:
     hostname: gateway
@@ -54,4 +58,17 @@ services:
       DATABASE_HOST: db
       DATABASE_USER: ${POSTGRES_USER:-store}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-store}
+    depends_on:
+      - db
+
+  order:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: ${POSTGRES_USER:-store}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-store}
+    depends_on:
+      - db
 

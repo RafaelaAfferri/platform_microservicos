@@ -26,6 +26,7 @@ public class AuthService {
             .password(register.password())
             .build();
 
+            
         // registrar no account
         // aqui estou substituindo o RestTemplate
         ResponseEntity<AccountOut> response = accountController.create(accountIn);

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 
 @FeignClient(name = "order", url = "http://order:8080")
@@ -15,15 +16,18 @@ public interface OrderController {
 
     @PostMapping("/order")
     public ResponseEntity<OrderOut> create(
-        @RequestBody OrderIn orderIn
+        @RequestBody OrderIn orderIn,
+        @RequestHeader(value = "id-account", required = true) String idAccount
     );
 
     @GetMapping("/order")
-    public ResponseEntity<List<OrderOut>> findAll();
+    public ResponseEntity<List<OrderOut>> findAll(
+        @RequestHeader(value = "id-account", required = true) String idAccount);
 
     @GetMapping("/order/{id}")
     public ResponseEntity<OrderOut> findById(
-        @PathVariable(value = "id", required = true) String orderId
+        @PathVariable(value = "id", required = true) String orderId,
+        @RequestHeader(value = "id-account", required = true) String idAccount
     );
 
 }

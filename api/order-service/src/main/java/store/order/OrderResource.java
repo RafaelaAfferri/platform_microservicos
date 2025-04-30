@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import store.account.AccountOut;
+
 @RestController
 public class OrderResource implements OrderController {
 
@@ -14,16 +16,18 @@ public class OrderResource implements OrderController {
 
 
     @Override
-    public ResponseEntity<OrderOut> create(OrderIn orderIn) {
-        Order created = orderService.create(OrderParser.to(orderIn));
+    public ResponseEntity<OrderOut> create(OrderIn orderIn, String idAccount) {
+        Order order = OrderParser.to(orderIn);
+        order.account(AccountOut.builder().id(idAccount).build());
+        Order created = orderService.create(order);
         return ResponseEntity.ok().body(OrderParser.to(created));
     }
 
     @Override
-    public ResponseEntity<List<OrderOut>> findAll(){
+    public ResponseEntity<List<OrderOut>> findAll(String idAccount){
         return ResponseEntity
             .ok()
-            .body(orderService.findAll()
+            .body(orderService.findAll(idAccount)
                 .stream()
                 .map(OrderParser::to)
                 .toList());
@@ -31,10 +35,16 @@ public class OrderResource implements OrderController {
 
 
     @Override
-    public ResponseEntity<OrderOut> findById(String id) {
-        return ResponseEntity
+    public ResponseEntity<OrderOut> findById(String id, String idAccount) {
+        Order order = orderService.findById(id);
+        if (order.account().id() != idAccount) {
+            return ResponseEntity
+                .notFound()
+                .build();
+        }
+        return ResponseEntity 
             .ok()
-            .body(OrderParser.to(orderService.findById(id)));
+            .body(OrderParser.to(order));
     }
     
 }

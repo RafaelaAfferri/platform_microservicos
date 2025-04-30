@@ -17,6 +17,7 @@ public interface AccountController {
         @RequestBody AccountIn accountIn
     );
 
+    
     @GetMapping("/account")
     public ResponseEntity<List<AccountOut>> findAll();
 
