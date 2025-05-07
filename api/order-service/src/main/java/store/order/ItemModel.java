@@ -31,16 +31,15 @@ public class ItemModel {
     private Double total;
 
     @Column(name = "id_order")
-    private String id_order;
+    private String idOrder;
 
     @Column(name = "id_product")
     private String id_product;
 
     public ItemModel(Item a) {
-        this.id = a.id();
         this.quantity = a.quantity();
         this.total = a.total();
-        this.id_order = a.order().id();
+        this.idOrder = a.order().id();
         this.id_product = a.product().id();
     }
 
@@ -50,8 +49,19 @@ public class ItemModel {
             .id(this.id)
             .quantity(this.quantity)
             .total(this.total)
-            .order(Order.builder().id(this.id_order).build())
+            .order(Order.builder().id(this.idOrder).build())
             .product(ProductOut.builder().id(this.id_product).build())
             .build();
         }
+
+    @Override
+    public String toString() {
+        return "ItemModel{" +
+            "id='" + id + '\'' +
+            ", quantity=" + quantity +
+            ", total=" + total +
+            ", id_order='" + idOrder + '\'' +
+            ", id_product='" + id_product + '\'' +
+            '}';
+    }
 }
