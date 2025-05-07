@@ -9,7 +9,7 @@ import store.product.ProductOut;
 public record ItemOut(
     String id,
     ProductOut product,
-    int quantity,
-    Float total
+    Integer quantity,
+    Double total
 ) {
 }

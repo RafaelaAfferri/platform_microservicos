@@ -12,6 +12,6 @@ public record OrderOut(
     String id,
     Date date,
     List<ItemOut> items,
-    Float total
+    Double total
 ) {
 }

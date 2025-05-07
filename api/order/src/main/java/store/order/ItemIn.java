@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 @Builder @Accessors(fluent = true)
 public record ItemIn(
     String id,
-    int quantity,
+    Integer quantity,
     String id_product
 ) {
     

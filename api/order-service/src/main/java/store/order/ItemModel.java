@@ -25,10 +25,10 @@ public class ItemModel {
     private String id;
 
     @Column(name = "nr_quantity")
-    private int quantity;
+    private Integer quantity;
 
     @Column(name = "nr_total")
-    private Float total;
+    private Double total;
 
     @Column(name = "id_order")
     private String id_order;

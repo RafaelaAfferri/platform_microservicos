@@ -30,7 +30,7 @@ public class OrderModel {
     private Date date;
 
     @Column(name = "nr_total")
-    private Float total;
+    private Double total;
 
     @Column(name = "id_account")
     private String idAccount;

@@ -12,7 +12,7 @@ import java.util.List;
 public class Order {
 
     private String id;
-    private Float total;
+    private Double total;
     private List<Item> items;
     private Date date;
     private AccountOut account;

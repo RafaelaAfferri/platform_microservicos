@@ -9,8 +9,8 @@ import store.product.ProductOut;
 public class Item {
 
     private String id;
-    private int quantity;
-    private Float total;
+    private Integer quantity;
+    private Double total;
     private Order order;
     private ProductOut product;
 
